@@ -1,0 +1,3 @@
+.conda
+*.json
+*.egg-info
