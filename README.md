@@ -1,4 +1,4 @@
-# Recordwright
+# Recordwright [![PyPI version](https://badge.fury.io/py/recordwright.svg)](https://badge.fury.io/py/recordwright)
 
 An extension for recording and playback of web interactions in [Playwright](https://pypi.python.org/pypi/playwright/).
 
