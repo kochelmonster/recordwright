@@ -22,9 +22,14 @@ setup(
     packages=find_namespace_packages(where="src"),
     author="Michael Reithinger",
     author_email="mreithinger@web.de",
-    description="recordwright",
-    license="GNU",
-    keywords="Library Test",
-    url="http://github.com/RecordWright/",
+    description="An extension for recording and playback of web interactions in Playwright",
+    license="MIT",
+    keywords="library,testing,development,web",
+    classifiers=[
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3",
+        "Topic :: Software Development :: Testing"],
+    url="https://github.com/kochelmonster/recordwright",
     **options
 )
