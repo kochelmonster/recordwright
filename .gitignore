@@ -2,3 +2,4 @@
 *.json
 *.egg-info
 dist
+build
