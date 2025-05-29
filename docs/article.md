@@ -102,9 +102,9 @@ stop with ctrl+shift+f11
 
 Click the input field in the browser, type the text, confirm with Enter, and finish recording with *ctrl+shift+f11*.
 
-![Browser](./browser.png)
+![Browser](https://github.com/kochelmonster/recordwright/blob/main/docs/browser.png?raw=true)
 
-3. **Playback:**  
+1. **Playback:**  
 On the next run, the interaction is automatically replayed:
 
 ```bash
