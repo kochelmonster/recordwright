@@ -15,7 +15,7 @@ class TestMVSC(unittest.TestCase):
 
         page.get_by_placeholder("What needs to be done?").wait_for()
 
-        recorder = install_recorder(page, output=open(os.devnull,"w")
+        recorder = install_recorder(page, output=open(os.devnull, "w")
                                     if HEADLESS else sys.stderr)
 
         recorder.interaction("todo", """

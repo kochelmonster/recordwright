@@ -1,5 +1,6 @@
 .conda
 *.json
 *.egg-info
+*.pyc
 dist
 build

@@ -25,6 +25,11 @@ def install(page, path=".", output=sys.stderr):
 class RecorderPlayer:
     """
     Records Interactions and replays them
+    
+    Args:
+        page (Page): The page url the to be tested.
+        path (str): Directory location, where to save and load the recordings.
+        output (file): output stream for messages. (Default sys.stderr)
     """
 
     def __init__(self, page, path=".", output=sys.stderr):
@@ -48,7 +53,7 @@ class RecorderPlayer:
 
     def interaction(self, name, description=None):
         """
-        Records or replays a interaction. If a replay file exists it will be replayed,
+        Records or replays an interaction. If a replay file exists it will be replayed,
         otherwise a replay file will be created by recording an interaction.
 
         Args:

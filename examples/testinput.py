@@ -40,9 +40,9 @@ class TestInput(unittest.TestCase):
         self.assertEqual(dt.input_value(), "")
         self.recorder.interaction("input-datetime", """
         - Click the Datetime-local Field
-        - Choose 1999-11-13 10:20 with the mouse
+        - Choose 2020-11-13 10:20 with the mouse
         """)
-        self.assertEqual(dt.input_value(), "1999-11-13T11:20")
+        self.assertEqual(dt.input_value(), "2020-11-13T11:20")
       
     def test_range(self):
         tmp = self.inputs["range"]
