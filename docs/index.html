@@ -24,8 +24,8 @@
     
       <div class="crossnote markdown-preview  ">
       
-<h1 id="why-ui-tests-are-so-brittle--and-how-a-small-library-makes-ui-testing-robust-and-maintainable">Why UI Tests Are So Brittle – And How A Small Library Makes UI Testing Robust and Maintainable </h1>
-<p>A Google search for "why are UI tests so brittle" reveals a bunch of problems of ui-testing, in summary it is:</p>
+<h1 id="why-ui-tests-are-so-brittle--and-how-a-small-library-makes-ui-testing-robust-and-maintainable">Why UI Tests Are So Brittle – And How a Small Library Makes UI Testing Robust and Maintainable </h1>
+<p>A Google search for "why are UI tests so brittle" reveals a bunch of problems with UI testing. In summary:</p>
 <ul>
 <li><strong>Tight Coupling to UI Structure:</strong><br>
 UI tests often rely on selectors, IDs, or visible text that change frequently as the UI evolves.</li>
@@ -38,42 +38,35 @@ Every UI change can require updates to numerous test cases.</li>
 <li><strong>Flaky Tests:</strong><br>
 Tests may fail intermittently due to timing issues, animations, or asynchronous behavior.</li>
 </ul>
-<p><strong>Traditional solutions</strong> like page objects, stable selectors, reduced test coverage, and regular maintenance help, but do not solve the core problem: UI tests must be manually updated whenever the UI changes.</p>
+<p>Traditional solutions like page objects, stable selectors, reduced test coverage, and regular maintenance help, but do not solve the core problem: UI tests must be manually updated whenever the UI changes.</p>
+<hr>
+<h2 id="a-different-approach-recordwright">A Different Approach: RecordWright </h2>
 <p>The open-source library <strong>RecordWright</strong> takes a fundamentally different approach:</p>
 <ul>
-<li>
-<p><strong>Record Instead of Script:</strong><br>
-Interactions are recorded directly in the browser and saved as JSON. The first run records the interaction; subsequent runs replay it automatically.</p>
-</li>
-<li>
-<p><strong>Effortless Updates:</strong><br>
-If the UI changes and a test fails, simply re-record the interaction—no need to update selectors or test code.</p>
-</li>
-<li>
-<p><strong>Minimal Test Code:</strong><br>
-Test logic remains concise, as interactions are stored as recordings.</p>
-</li>
-<li>
-<p><strong>Complex Interactions Supported:</strong><br>
-Even challenging actions like drag-and-drop are reliably captured and replayed.</p>
-</li>
-<li>
-<p><strong>Seamless Playwright Integration:</strong><br>
-RecordWright plugs directly into Playwright tests with a simple API:</p>
+<li><strong>Record Instead of Script:</strong><br>
+Interactions are recorded directly in the browser and saved as JSON. The first run records the interaction; subsequent runs replay it automatically.</li>
+<li><strong>Effortless Updates:</strong><br>
+If the UI changes and a test fails, simply re-record the interaction—no need to update selectors or test code.</li>
+<li><strong>Minimal Test Code:</strong><br>
+Test logic remains concise, as interactions are stored as recordings.</li>
+<li><strong>Complex Interactions Supported:</strong><br>
+Even challenging actions like drag-and-drop are reliably captured and replayed.</li>
+<li><strong>Seamless Playwright Integration:</strong><br>
+RecordWright plugs directly into Playwright tests with a simple API:</li>
+</ul>
 <pre data-role="codeBlock" data-info="python" class="language-python python"><code>recorder <span class="token operator">=</span> install_recorder<span class="token punctuation">(</span>page<span class="token punctuation">)</span>
 recorder<span class="token punctuation">.</span>interaction<span class="token punctuation">(</span><span class="token string">"my_test"</span><span class="token punctuation">,</span> <span class="token string">"Description of the interaction"</span><span class="token punctuation">)</span>
 </code></pre><p>If the UI changes, just re-record—no refactoring required.</p>
-</li>
-</ul>
-<p>Unlike Selenium, RecordWright can record all user interactions including drag and drop operations and it replays in the same timing as the recording was done.</p>
-<h2 id="an-example">An Example </h2>
-<p>Here is a simple example of a UI test with RecordWright:</p>
+<p>Unlike Selenium, RecordWright can record all user interactions, including drag and drop operations, and it replays them with the same timing as the original recording.</p>
+<hr>
+<h2 id="example-a-simple-ui-test-with-recordwright">Example: A Simple UI Test with RecordWright </h2>
+<p>Here is a simple example of a UI test using RecordWright:</p>
 <pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token comment"># testmvc.py</span>
 <span class="token keyword keyword-import">import</span> unittest
 <span class="token keyword keyword-import">import</span> os
 <span class="token keyword keyword-import">import</span> sys
 <span class="token keyword keyword-from">from</span> playwright<span class="token punctuation">.</span>sync_api <span class="token keyword keyword-import">import</span> sync_playwright
-<span class="token keyword keyword-from">from</span> RecordWright <span class="token keyword keyword-import">import</span> install <span class="token keyword keyword-as">as</span> install_recorder
+<span class="token keyword keyword-from">from</span> recordwright <span class="token keyword keyword-import">import</span> install <span class="token keyword keyword-as">as</span> install_recorder
 
 HEADLESS <span class="token operator">=</span> os<span class="token punctuation">.</span>environ<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"HEADLESS"</span><span class="token punctuation">,</span> <span class="token string">"false"</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"true"</span>
 
@@ -100,29 +93,29 @@ HEADLESS <span class="token operator">=</span> os<span class="token punctuation"
 <span class="token keyword keyword-if">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
     <span class="token keyword keyword-with">with</span> sync_playwright<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword keyword-as">as</span> p<span class="token punctuation">:</span>
         unittest<span class="token punctuation">.</span>main<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre><p>Step-by-Step: Recording and Playback</p>
-<p>Start the script in the terminal:</p>
+</code></pre><hr>
+<h2 id="step-by-step-recording-and-playback">Step-by-Step: Recording and Playback </h2>
 <ol>
-<li><strong>Start the test:</strong></li>
-</ol>
+<li>
+<p><strong>Start the test:</strong></p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>python testmsvc.py
-</code></pre><ol start="2">
-<li><strong>Record the interaction:</strong></li>
-</ol>
+</code></pre></li>
+<li>
+<p><strong>Record the interaction:</strong></p>
 <p>Follow the instructions in the terminal:</p>
-<pre data-role="codeBlock" data-info="console" class="language-console console"><code>record interaction todo.json
+<pre data-role="codeBlock" data-info="" class="language-text"><code>record interaction todo.json
 
         - Click "What needs to be done"
         - Type "Test RecordWright"
         - Press Enter
-        
+
 stop with ctrl+shift+f11
-</code></pre><p>Click the input field in the browser, type the text, confirm with Enter, and finish recording with <em>ctrl+shift+f11</em>.</p>
+</code></pre><p>Click the input field in the browser, type the text, confirm with Enter, and finish recording with <strong>ctrl+shift+f11</strong>.</p>
 <p><img src="https://github.com/kochelmonster/recordwright/blob/main/docs/browser.png?raw=true" alt="Browser"></p>
-<ol>
-<li><strong>Playback:</strong><br>
-On the next run, the interaction is automatically replayed:</li>
-</ol>
+</li>
+<li>
+<p><strong>Playback:</strong><br>
+On the next run, the interaction is automatically replayed:</p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>python testmsvc.py
 play todo.json
 <span class="token keyword keyword-done">done</span>
@@ -132,62 +125,70 @@ Ran <span class="token number">1</span> <span class="token builtin class-name">t
 
 OK
 </code></pre><p>The file <code>todo.json</code> contains the recording and is used during the test run.</p>
+</li>
+</ol>
+<hr>
 <h2 id="how-does-recordwright-work">How Does RecordWright Work? </h2>
 <ul>
 <li>On the first test run, the interaction is recorded in the browser and saved as JSON.</li>
 <li>On the next run, RecordWright detects the existing recording and replays it automatically.</li>
-<li>UI changed? Simply rerun the test and re-record the interaction.</li>
+<li>If the UI changes, simply rerun the test and re-record the interaction.</li>
 </ul>
+<hr>
 <h2 id="troubleshooting--tips">Troubleshooting &amp; Tips </h2>
 <ul>
 <li><strong>Playback errors:</strong><br>
-If playback fails (e.g., because the UI has changed significantly), simply re-record the interaction.</li>
+If playback fails (for example, because the UI has changed significantly), simply re-record the interaction.</li>
 <li><strong>Complex interactions:</strong><br>
 Drag-and-drop or multi-selections are also supported.</li>
 <li><strong>Headless mode:</strong><br>
-In headless mode, no recording is started, only playback.</li>
+In headless mode, only playback is performed; no recording is started.</li>
 </ul>
-<h3 id="recordwright-vs-traditional-solutions">RecordWright vs. Traditional Solutions </h3>
-<table>
-<thead>
-<tr>
-<th>Problem</th>
-<th>Traditional Solutions (Page Objects, Stable Selectors)</th>
-<th>RecordWright</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>UI Changes</td>
-<td>Update selectors/test code</td>
-<td>Re-record the interaction</td>
-</tr>
-<tr>
-<td>Maintenance Overhead</td>
-<td>High, many places affected</td>
-<td>Very low, just re-record</td>
-</tr>
-<tr>
-<td>Learning Curve</td>
-<td>High, requires abstraction and code</td>
-<td>Low, intuitive recording</td>
-</tr>
-<tr>
-<td>Complex Interactions</td>
-<td>Hard to script</td>
-<td>Easy to record</td>
-</tr>
-<tr>
-<td>Test Robustness</td>
-<td>Improved, but never perfect</td>
-<td>High, as long as the interaction is the same</td>
-</tr>
-</tbody>
-</table>
+<hr>
+<h2 id="recordwright-vs-traditional-solutions">RecordWright vs. Traditional Solutions </h2>
+<p><strong>Problem:</strong></p>
+<ul>
+<li>
+<p>UI Changes</p>
+<ul>
+<li>Traditional: Update selectors/test code</li>
+<li>RecordWright: Re-record the interaction</li>
+</ul>
+</li>
+<li>
+<p>Maintenance Overhead</p>
+<ul>
+<li>Traditional: High, many places affected</li>
+<li>RecordWright: Very low, just re-record</li>
+</ul>
+</li>
+<li>
+<p>Learning Curve</p>
+<ul>
+<li>Traditional: High, requires abstraction and code</li>
+<li>RecordWright: Low, intuitive recording</li>
+</ul>
+</li>
+<li>
+<p>Complex Interactions</p>
+<ul>
+<li>Traditional: Hard to script</li>
+<li>RecordWright: Easy to record</li>
+</ul>
+</li>
+<li>
+<p>Test Robustness</p>
+<ul>
+<li>Traditional: Improved, but never perfect</li>
+<li>RecordWright: High, as long as the interaction is the same</li>
+</ul>
+</li>
+</ul>
 <hr>
 <h2 id="conclusion">Conclusion </h2>
 <p>The brittleness of UI tests is a well-known pain point, rooted in their tight coupling to the ever-changing UI structure. Traditional solutions like Page Objects and stable selectors help, but require ongoing maintenance and technical expertise.</p>
 <p><strong>RecordWright</strong> offers a pragmatic, recording-based approach: simply re-record interactions when the UI changes. This makes UI testing faster, more robust, and dramatically reduces maintenance effort.</p>
+<hr>
 <h2 id="further-resources">Further Resources </h2>
 <ul>
 <li><a href="https://github.com/kochelmonster/RecordWright">RecordWright on GitHub</a></li>

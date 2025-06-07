@@ -1,6 +1,6 @@
-# Why UI Tests Are So Brittle – And How A Small Library Makes UI Testing Robust and Maintainable
+# Why UI Tests Are So Brittle – And How a Small Library Makes UI Testing Robust and Maintainable
 
-A Google search for "why are UI tests so brittle" reveals a bunch of problems of ui-testing, in summary it is:
+A Google search for "why are UI tests so brittle" reveals a bunch of problems with UI testing. In summary:
 
 - **Tight Coupling to UI Structure:**  
   UI tests often rely on selectors, IDs, or visible text that change frequently as the UI evolves.
@@ -13,7 +13,11 @@ A Google search for "why are UI tests so brittle" reveals a bunch of problems of
 - **Flaky Tests:**  
   Tests may fail intermittently due to timing issues, animations, or asynchronous behavior.
 
-**Traditional solutions** like page objects, stable selectors, reduced test coverage, and regular maintenance help, but do not solve the core problem: UI tests must be manually updated whenever the UI changes.
+Traditional solutions like page objects, stable selectors, reduced test coverage, and regular maintenance help, but do not solve the core problem: UI tests must be manually updated whenever the UI changes.
+
+---
+
+## A Different Approach: RecordWright
 
 The open-source library **RecordWright** takes a fundamentally different approach:
 
@@ -28,18 +32,20 @@ The open-source library **RecordWright** takes a fundamentally different approac
 - **Seamless Playwright Integration:**  
   RecordWright plugs directly into Playwright tests with a simple API:
 
-  ```python
-  recorder = install_recorder(page)
-  recorder.interaction("my_test", "Description of the interaction")
-  ```
+```python
+recorder = install_recorder(page)
+recorder.interaction("my_test", "Description of the interaction")
+```
 
-  If the UI changes, just re-record—no refactoring required.
+If the UI changes, just re-record—no refactoring required.
 
-Unlike Selenium, RecordWright can record all user interactions including drag and drop operations and it replays in the same timing as the recording was done.
+Unlike Selenium, RecordWright can record all user interactions, including drag and drop operations, and it replays them with the same timing as the original recording.
 
-## An Example
+---
 
-Here is a simple example of a UI test with RecordWright:
+## Example: A Simple UI Test with RecordWright
+
+Here is a simple example of a UI test using RecordWright:
 
 ```python
 # testmvc.py
@@ -47,7 +53,7 @@ import unittest
 import os
 import sys
 from playwright.sync_api import sync_playwright
-from RecordWright import install as install_recorder
+from recordwright import install as install_recorder
 
 HEADLESS = os.environ.get("HEADLESS", "false") == "true"
 
@@ -76,74 +82,93 @@ if __name__ == "__main__":
         unittest.main()
 ```
 
-Step-by-Step: Recording and Playback
+---
 
-Start the script in the terminal:
+## Step-by-Step: Recording and Playback
 
 1. **Start the test:**
 
-```bash
-python testmsvc.py
-```
+   ```bash
+   python testmsvc.py
+   ```
 
 2. **Record the interaction:**
 
-Follow the instructions in the terminal:
+   Follow the instructions in the terminal:
 
-```console
-record interaction todo.json
+   ```
+   record interaction todo.json
 
-        - Click "What needs to be done"
-        - Type "Test RecordWright"
-        - Press Enter
-        
-stop with ctrl+shift+f11
-```
+           - Click "What needs to be done"
+           - Type "Test RecordWright"
+           - Press Enter
 
-Click the input field in the browser, type the text, confirm with Enter, and finish recording with *ctrl+shift+f11*.
+   stop with ctrl+shift+f11
+   ```
 
-![Browser](https://github.com/kochelmonster/recordwright/blob/main/docs/browser.png?raw=true)
+   Click the input field in the browser, type the text, confirm with Enter, and finish recording with **ctrl+shift+f11**.
 
-1. **Playback:**  
-On the next run, the interaction is automatically replayed:
+   ![Browser](https://github.com/kochelmonster/recordwright/blob/main/docs/browser.png?raw=true)
 
-```bash
-python testmsvc.py
-play todo.json
-done
-.
-----------------------------------------------------------------------
-Ran 1 test in 10.817s
+3. **Playback:**  
+   On the next run, the interaction is automatically replayed:
 
-OK
-```
+   ```bash
+   python testmsvc.py
+   play todo.json
+   done
+   .
+   ----------------------------------------------------------------------
+   Ran 1 test in 10.817s
 
-The file `todo.json` contains the recording and is used during the test run.
+   OK
+   ```
+
+   The file `todo.json` contains the recording and is used during the test run.
+
+---
 
 ## How Does RecordWright Work?
 
 - On the first test run, the interaction is recorded in the browser and saved as JSON.
 - On the next run, RecordWright detects the existing recording and replays it automatically.
-- UI changed? Simply rerun the test and re-record the interaction.
+- If the UI changes, simply rerun the test and re-record the interaction.
+
+---
 
 ## Troubleshooting & Tips
 
 - **Playback errors:**  
-  If playback fails (e.g., because the UI has changed significantly), simply re-record the interaction.
+  If playback fails (for example, because the UI has changed significantly), simply re-record the interaction.
 - **Complex interactions:**  
   Drag-and-drop or multi-selections are also supported.
 - **Headless mode:**  
-  In headless mode, no recording is started, only playback.
+  In headless mode, only playback is performed; no recording is started.
 
-### RecordWright vs. Traditional Solutions
+---
 
-| Problem                | Traditional Solutions (Page Objects, Stable Selectors) | RecordWright                        |
-|------------------------|--------------------------------------------------------|-------------------------------------|
-| UI Changes             | Update selectors/test code                             | Re-record the interaction           |
-| Maintenance Overhead   | High, many places affected                             | Very low, just re-record            |
-| Learning Curve         | High, requires abstraction and code                    | Low, intuitive recording            |
-| Complex Interactions   | Hard to script                                         | Easy to record                      |
-| Test Robustness        | Improved, but never perfect                            | High, as long as the interaction is the same |
+## RecordWright vs. Traditional Solutions
+
+**Problem:**  
+- UI Changes  
+  - Traditional: Update selectors/test code  
+  - RecordWright: Re-record the interaction
+
+- Maintenance Overhead  
+  - Traditional: High, many places affected  
+  - RecordWright: Very low, just re-record
+
+- Learning Curve  
+  - Traditional: High, requires abstraction and code  
+  - RecordWright: Low, intuitive recording
+
+- Complex Interactions  
+  - Traditional: Hard to script  
+  - RecordWright: Easy to record
+
+- Test Robustness  
+  - Traditional: Improved, but never perfect  
+  - RecordWright: High, as long as the interaction is the same
 
 ---
 
@@ -152,6 +177,8 @@ The file `todo.json` contains the recording and is used during the test run.
 The brittleness of UI tests is a well-known pain point, rooted in their tight coupling to the ever-changing UI structure. Traditional solutions like Page Objects and stable selectors help, but require ongoing maintenance and technical expertise.
 
 **RecordWright** offers a pragmatic, recording-based approach: simply re-record interactions when the UI changes. This makes UI testing faster, more robust, and dramatically reduces maintenance effort.
+
+---
 
 ## Further Resources
 
