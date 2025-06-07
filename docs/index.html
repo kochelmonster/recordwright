@@ -40,8 +40,8 @@ Tests may fail intermittently due to timing issues, animations, or asynchronous 
 </ul>
 <p>Traditional solutions like page objects, stable selectors, reduced test coverage, and regular maintenance help, but do not solve the core problem: UI tests must be manually updated whenever the UI changes.</p>
 <hr>
-<h2 id="a-different-approach-recordwright">A Different Approach: RecordWright </h2>
-<p>The open-source library <strong>RecordWright</strong> takes a fundamentally different approach:</p>
+<h2 id="a-different-approach-recordwright">A Different Approach: Recordwright </h2>
+<p>The open-source library <strong>Recordwright</strong> takes a fundamentally different approach:</p>
 <ul>
 <li><strong>Record Instead of Script:</strong><br>
 Interactions are recorded directly in the browser and saved as JSON. The first run records the interaction; subsequent runs replay it automatically.</li>
@@ -52,15 +52,15 @@ Test logic remains concise, as interactions are stored as recordings.</li>
 <li><strong>Complex Interactions Supported:</strong><br>
 Even challenging actions like drag-and-drop are reliably captured and replayed.</li>
 <li><strong>Seamless Playwright Integration:</strong><br>
-RecordWright plugs directly into Playwright tests with a simple API:</li>
+Recordwright plugs directly into Playwright tests with a simple API:</li>
 </ul>
 <pre data-role="codeBlock" data-info="python" class="language-python python"><code>recorder <span class="token operator">=</span> install_recorder<span class="token punctuation">(</span>page<span class="token punctuation">)</span>
 recorder<span class="token punctuation">.</span>interaction<span class="token punctuation">(</span><span class="token string">"my_test"</span><span class="token punctuation">,</span> <span class="token string">"Description of the interaction"</span><span class="token punctuation">)</span>
 </code></pre><p>If the UI changes, just re-record—no refactoring required.</p>
-<p>Unlike Selenium, RecordWright can record all user interactions, including drag and drop operations, and it replays them with the same timing as the original recording.</p>
+<p>Unlike Selenium, Recordwright can record all user interactions, including drag and drop operations, and it replays them with the same timing as the original recording.</p>
 <hr>
-<h2 id="example-a-simple-ui-test-with-recordwright">Example: A Simple UI Test with RecordWright </h2>
-<p>Here is a simple example of a UI test using RecordWright:</p>
+<h2 id="example-a-simple-ui-test-with-recordwright">Example: A Simple UI Test with Recordwright </h2>
+<p>Here is a simple example of a UI test using Recordwright:</p>
 <pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token comment"># testmvc.py</span>
 <span class="token keyword keyword-import">import</span> unittest
 <span class="token keyword keyword-import">import</span> os
@@ -128,10 +128,10 @@ OK
 </li>
 </ol>
 <hr>
-<h2 id="how-does-recordwright-work">How Does RecordWright Work? </h2>
+<h2 id="how-does-recordwright-work">How Does Recordwright Work? </h2>
 <ul>
 <li>On the first test run, the interaction is recorded in the browser and saved as JSON.</li>
-<li>On the next run, RecordWright detects the existing recording and replays it automatically.</li>
+<li>On the next run, Recordwright detects the existing recording and replays it automatically.</li>
 <li>If the UI changes, simply rerun the test and re-record the interaction.</li>
 </ul>
 <hr>
@@ -145,53 +145,53 @@ Drag-and-drop or multi-selections are also supported.</li>
 In headless mode, only playback is performed; no recording is started.</li>
 </ul>
 <hr>
-<h2 id="recordwright-vs-traditional-solutions">RecordWright vs. Traditional Solutions </h2>
+<h2 id="recordwright-vs-traditional-solutions">Recordwright vs. Traditional Solutions </h2>
 <p><strong>Problem:</strong></p>
 <ul>
 <li>
 <p>UI Changes</p>
 <ul>
 <li>Traditional: Update selectors/test code</li>
-<li>RecordWright: Re-record the interaction</li>
+<li>Recordwright: Re-record the interaction</li>
 </ul>
 </li>
 <li>
 <p>Maintenance Overhead</p>
 <ul>
 <li>Traditional: High, many places affected</li>
-<li>RecordWright: Very low, just re-record</li>
+<li>Recordwright: Very low, just re-record</li>
 </ul>
 </li>
 <li>
 <p>Learning Curve</p>
 <ul>
 <li>Traditional: High, requires abstraction and code</li>
-<li>RecordWright: Low, intuitive recording</li>
+<li>Recordwright: Low, intuitive recording</li>
 </ul>
 </li>
 <li>
 <p>Complex Interactions</p>
 <ul>
 <li>Traditional: Hard to script</li>
-<li>RecordWright: Easy to record</li>
+<li>Recordwright: Easy to record</li>
 </ul>
 </li>
 <li>
 <p>Test Robustness</p>
 <ul>
 <li>Traditional: Improved, but never perfect</li>
-<li>RecordWright: High, as long as the interaction is the same</li>
+<li>Recordwright: High, as long as the interaction is the same</li>
 </ul>
 </li>
 </ul>
 <hr>
 <h2 id="conclusion">Conclusion </h2>
 <p>The brittleness of UI tests is a well-known pain point, rooted in their tight coupling to the ever-changing UI structure. Traditional solutions like Page Objects and stable selectors help, but require ongoing maintenance and technical expertise.</p>
-<p><strong>RecordWright</strong> offers a pragmatic, recording-based approach: simply re-record interactions when the UI changes. This makes UI testing faster, more robust, and dramatically reduces maintenance effort.</p>
+<p><strong>Recordwright</strong> offers a pragmatic, recording-based approach: simply re-record interactions when the UI changes. This makes UI testing faster, more robust, and dramatically reduces maintenance effort.</p>
 <hr>
 <h2 id="further-resources">Further Resources </h2>
 <ul>
-<li><a href="https://github.com/kochelmonster/RecordWright">RecordWright on GitHub</a></li>
+<li><a href="https://github.com/kochelmonster/Recordwright">Recordwright on GitHub</a></li>
 <li><a href="https://playwright.dev/python/">Playwright Documentation</a></li>
 </ul>
 

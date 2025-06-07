@@ -17,9 +17,9 @@ Traditional solutions like page objects, stable selectors, reduced test coverage
 
 ---
 
-## A Different Approach: RecordWright
+## A Different Approach: Recordwright
 
-The open-source library **RecordWright** takes a fundamentally different approach:
+The open-source library **Recordwright** takes a fundamentally different approach:
 
 - **Record Instead of Script:**  
   Interactions are recorded directly in the browser and saved as JSON. The first run records the interaction; subsequent runs replay it automatically.
@@ -30,7 +30,7 @@ The open-source library **RecordWright** takes a fundamentally different approac
 - **Complex Interactions Supported:**  
   Even challenging actions like drag-and-drop are reliably captured and replayed.
 - **Seamless Playwright Integration:**  
-  RecordWright plugs directly into Playwright tests with a simple API:
+  Recordwright plugs directly into Playwright tests with a simple API:
 
 ```python
 recorder = install_recorder(page)
@@ -39,13 +39,13 @@ recorder.interaction("my_test", "Description of the interaction")
 
 If the UI changes, just re-record—no refactoring required.
 
-Unlike Selenium, RecordWright can record all user interactions, including drag and drop operations, and it replays them with the same timing as the original recording.
+Unlike Selenium, Recordwright can record all user interactions, including drag and drop operations, and it replays them with the same timing as the original recording.
 
 ---
 
-## Example: A Simple UI Test with RecordWright
+## Example: A Simple UI Test with Recordwright
 
-Here is a simple example of a UI test using RecordWright:
+Here is a simple example of a UI test using Recordwright:
 
 ```python
 # testmvc.py
@@ -128,10 +128,10 @@ if __name__ == "__main__":
 
 ---
 
-## How Does RecordWright Work?
+## How Does Recordwright Work?
 
 - On the first test run, the interaction is recorded in the browser and saved as JSON.
-- On the next run, RecordWright detects the existing recording and replays it automatically.
+- On the next run, Recordwright detects the existing recording and replays it automatically.
 - If the UI changes, simply rerun the test and re-record the interaction.
 
 ---
@@ -147,28 +147,28 @@ if __name__ == "__main__":
 
 ---
 
-## RecordWright vs. Traditional Solutions
+## Recordwright vs. Traditional Solutions
 
 **Problem:**  
 - UI Changes  
   - Traditional: Update selectors/test code  
-  - RecordWright: Re-record the interaction
+  - Recordwright: Re-record the interaction
 
 - Maintenance Overhead  
   - Traditional: High, many places affected  
-  - RecordWright: Very low, just re-record
+  - Recordwright: Very low, just re-record
 
 - Learning Curve  
   - Traditional: High, requires abstraction and code  
-  - RecordWright: Low, intuitive recording
+  - Recordwright: Low, intuitive recording
 
 - Complex Interactions  
   - Traditional: Hard to script  
-  - RecordWright: Easy to record
+  - Recordwright: Easy to record
 
 - Test Robustness  
   - Traditional: Improved, but never perfect  
-  - RecordWright: High, as long as the interaction is the same
+  - Recordwright: High, as long as the interaction is the same
 
 ---
 
@@ -176,11 +176,11 @@ if __name__ == "__main__":
 
 The brittleness of UI tests is a well-known pain point, rooted in their tight coupling to the ever-changing UI structure. Traditional solutions like Page Objects and stable selectors help, but require ongoing maintenance and technical expertise.
 
-**RecordWright** offers a pragmatic, recording-based approach: simply re-record interactions when the UI changes. This makes UI testing faster, more robust, and dramatically reduces maintenance effort.
+**Recordwright** offers a pragmatic, recording-based approach: simply re-record interactions when the UI changes. This makes UI testing faster, more robust, and dramatically reduces maintenance effort.
 
 ---
 
 ## Further Resources
 
-- [RecordWright on GitHub](https://github.com/kochelmonster/RecordWright)
+- [Recordwright on GitHub](https://github.com/kochelmonster/Recordwright)
 - [Playwright Documentation](https://playwright.dev/python/)
